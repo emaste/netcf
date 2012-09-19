@@ -44,6 +44,9 @@ void run1(struct netcf *ncf, const char *prog, const char *arg);
 /* Get a file descriptor to a ioctl socket */
 int init_ioctl_fd(struct netcf *ncf);
 
+/* Check if the interface INTF is up using an ioctl call */
+int if_is_active(struct netcf *ncf, const char *intf);
+
 #endif
 
 /*

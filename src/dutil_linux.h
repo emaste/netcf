@@ -115,9 +115,6 @@ int netlink_init(struct netcf *ncf);
 /*shutdown the netlink socket and release its resources */
 int netlink_close(struct netcf *ncf);
 
-/* Check if the interface INTF is up using an ioctl call */
-int if_is_active(struct netcf *ncf, const char *intf);
-
 /* Interface types recognized by netcf. */
 typedef enum {
     NETCF_IFACE_TYPE_NONE = 0,  /* not yet determined */

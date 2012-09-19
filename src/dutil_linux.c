@@ -453,18 +453,6 @@ void modprobed_unalias_bond(struct netcf *ncf, const char *name) {
  * ioctl and netlink-related utilities
  */
 
-int if_is_active(struct netcf *ncf, const char *intf) {
-    struct ifreq ifr;
-
-    MEMZERO(&ifr, 1);
-    strncpy(ifr.ifr_name, intf, sizeof(ifr.ifr_name));
-    ifr.ifr_name[sizeof(ifr.ifr_name) - 1] = '\0';
-    if (ioctl(ncf->driver->ioctl_fd, SIOCGIFFLAGS, &ifr))  {
-        return 0;
-    }
-    return ((ifr.ifr_flags & (IFF_UP|IFF_RUNNING)) == (IFF_UP|IFF_RUNNING));
-}
-
 netcf_if_type_t if_type(struct netcf *ncf, const char *intf) {
     char *path;
     struct stat stats;
