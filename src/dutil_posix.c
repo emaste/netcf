@@ -40,6 +40,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
+#include <net/if.h>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -296,13 +297,13 @@ error:
     return -1;
 }
 
-int if_is_active(struct netcf *ncf, const char *intf) {
+int if_is_active(int ioctl_fd, const char *intf) {
     struct ifreq ifr;
 
     MEMZERO(&ifr, 1);
     strncpy(ifr.ifr_name, intf, sizeof(ifr.ifr_name));
     ifr.ifr_name[sizeof(ifr.ifr_name) - 1] = '\0';
-    if (ioctl(ncf->driver->ioctl_fd, SIOCGIFFLAGS, &ifr))  {
+    if (ioctl(ioctl_fd, SIOCGIFFLAGS, &ifr))  {
         return 0;
     }
     return ((ifr.ifr_flags & (IFF_UP|IFF_RUNNING)) == (IFF_UP|IFF_RUNNING));

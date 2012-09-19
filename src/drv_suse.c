@@ -407,7 +407,7 @@ static int list_interface_ids(struct netcf *ncf,
             name = intf[result];
 
             if (!is_qualified) {
-                int is_active = if_is_active(ncf, name);
+                int is_active = if_is_active(ncf->driver->ioctl_fd, name);
                 if ((is_active && (flags & NETCF_IFACE_ACTIVE))
                     || ((!is_active) && (flags & NETCF_IFACE_INACTIVE))) {
 
@@ -803,7 +803,7 @@ int drv_if_status(struct netcf_if *nif, unsigned int *flags) {
 
     ERR_THROW(flags == NULL, nif->ncf, EOTHER, "NULL pointer for flags in ncf_if_status");
     *flags = 0;
-    is_active = if_is_active(nif->ncf, nif->name);
+    is_active = if_is_active(nif->ncf->driver->ioctl_fd, nif->name);
     if (is_active)
         *flags |= NETCF_IFACE_ACTIVE;
     else
@@ -1177,7 +1177,7 @@ int drv_if_up(struct netcf_if *nif) {
     }
     run1(ncf, ifup, nif->name);
     ERR_BAIL(ncf);
-    ERR_THROW(!if_is_active(ncf, nif->name), ncf, EOTHER,
+    ERR_THROW(!if_is_active(ncf->driver->ioctl_fd, nif->name), ncf, EOTHER,
               "interface %s failed to become active - "
               "possible disconnected cable.", nif->name);
     result = 0;

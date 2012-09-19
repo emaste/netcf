@@ -45,7 +45,7 @@ void run1(struct netcf *ncf, const char *prog, const char *arg);
 int init_ioctl_fd(struct netcf *ncf);
 
 /* Check if the interface INTF is up using an ioctl call */
-int if_is_active(struct netcf *ncf, const char *intf);
+int if_is_active(int ioctl_fd, const char *intf);
 
 #endif
 
