@@ -36,6 +36,7 @@ EXTRA_DIST = netcf_public.syms \
 	netcf_private.syms \
 	netcf-transaction.init.sh \
 	$(DRIVER_SOURCES_COMMON) \
+	$(DRIVER_SOURCES_POSIX) \
 	$(DRIVER_SOURCES_FREEBSD) \
 	$(DRIVER_SOURCES_LINUX) \
 	$(DRIVER_SOURCES_MSWINDOWS) \
